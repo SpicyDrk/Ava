@@ -1,11 +1,13 @@
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Adventurer : MonoBehaviour
+/// <summary>
+/// Alternative Adventurer script that uses 3D world space TextMeshPro components
+/// Use this version if your adventurer UI elements are in world space rather than UI Canvas
+/// </summary>
+public class AdventurerWorldSpace : MonoBehaviour
 {
-
     enum AdventurerStatus { idle, onMission }
 
     [SerializeField] private string adventurerName;
@@ -14,9 +16,10 @@ public class Adventurer : MonoBehaviour
     [SerializeField] private int experience;
     [SerializeField] private AdventurerStatus status = AdventurerStatus.idle;
 
-    [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI levelText;
-    [SerializeField] private TextMeshProUGUI experienceBar;
+    // Use TextMeshPro for world space 3D text
+    [SerializeField] private TextMeshPro nameText;
+    [SerializeField] private TextMeshPro levelText;
+    [SerializeField] private TextMeshPro experienceBar;
 
     private GameObject _hireButton;
     private bool _beingDragged;
@@ -26,6 +29,7 @@ public class Adventurer : MonoBehaviour
     // Drag and drop related
     private Camera _mainCamera;
     private Vector3 _dragOffset;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -59,6 +63,7 @@ public class Adventurer : MonoBehaviour
             transform.position = new Vector3(worldPosition.x + _dragOffset.x, worldPosition.y + _dragOffset.y, transform.position.z);
         }
     }
+
     void OnMouseDown()
     {
         if (!isRecruited)
